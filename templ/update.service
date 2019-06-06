@@ -1,0 +1,15 @@
+[Unit]
+Description=Update
+After=network.target docker.service
+
+[Service]
+Type=forking
+EnvironmentFile=-/opt/update/config/updater-env
+ExecStart=/opt/update/scripts/updater.sh
+TimeoutStopSec=0
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
