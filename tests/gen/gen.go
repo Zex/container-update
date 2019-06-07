@@ -26,7 +26,6 @@ var (
 const (
   COMP_APP = "application"
   COMP_DB = "db"
-  COMP_MQ = "mq"
 )
 
 func NewGen() *Gen {
@@ -124,50 +123,6 @@ func (g *Gen) NewDbComp(image_name, version string) (*manifest.Component) {
       },
       */
       Binds: []string{"mysql-data:/var/lib/mysql:rw"},
-    },
-  }
-
-  return &comp
-}
-
-func (g *Gen) NewMqComp(image_name, version string) (*manifest.Component) {
-  tag := "1.0"//g.LatestTag(image_name)
-  cred, _ := manifest.GenCred(g.Reg.GetUserPasswd())
-
-  comp_op := manifest.COMPOP_DEPRECATE
-
-  comp := manifest.Component{
-    Version: version,
-    Name: COMP_MQ,
-    Registry: g.Reg.Host,
-    ImageName: image_name,
-    ImageTag: tag,
-    Cred: cred,
-    Op: comp_op,
-    ContainerName: "activemq",
-    ContainerConfig: container.Config {
-      Image: fmt.Sprintf("%s/%s:%s", g.Reg.Host, image_name, tag),
-      Tty: false,
-      AttachStdin: false,
-      AttachStdout: false,
-      AttachStderr: false,
-      /**
-      ExposedPorts: nat.PortSet{
-        nat.Port(fmt.Sprintf("%d/tcp", 8161)):{},
-        nat.Port(fmt.Sprintf("%d/tcp", 61616)):{},
-      },
-      */
-    },
-    HostConfig: container.HostConfig {
-      RestartPolicy: container.RestartPolicy{Name: "always",},
-      /**
-      PortBindings: nat.PortMap{
-        nat.Port(fmt.Sprintf("%d/tcp", 8161)): []nat.PortBinding{
-          {HostIP: "0.0.0.0", HostPort: "8161",},},
-        nat.Port(fmt.Sprintf("%d/tcp", 61616)): []nat.PortBinding{
-          {HostIP: "0.0.0.0", HostPort: "61616",},},
-      },
-      */
     },
   }
 
