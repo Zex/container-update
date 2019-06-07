@@ -12,7 +12,7 @@ PROJECTPATH := src/github.com/zex/container-update
 
 .PHONY: clean updated build all tests
 
-all: build updaterd
+all: build updated
 
 build:
 	$(MKDIR) $(BUILD)
@@ -21,9 +21,9 @@ dep:
 	$(MKDIR) $(GOPATH)/src
 	@ln -s /usr/share/gocode/src/* $(GOPATH)/src
 
-updated: $(GOPATH)/$(PROJECTPATH)/apps/updated.go
+updated: 
 	$(ECHO) "creating $@"
-	GOPATH=$(GOPATH) go build -o $(BUILD)/updaterd $<
+	GOPATH=$(GOPATH) go build -o $(BUILD)/$@ $(GOPATH)/$(PROJECTPATH)/apps/updated.go
 
 clean:
 	$(RM) $(BUILD)

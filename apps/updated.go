@@ -10,6 +10,6 @@ import (
 func main() {
   flag.Parse()
   glog.Infof("Updater %s", common.VERSION)
-  app := up.NewUpdater()
+  app := up.NewDaemon()
   app.Start()
 }
