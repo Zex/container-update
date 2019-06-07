@@ -218,7 +218,7 @@ func (self *DockerUpdater) heartbeatUpdate() error {
   return hb.Publish()
 }
 
-func (self *Updater) pubError(e string) {
+func (self *DockerUpdater) pubError(e string) {
   ev := common.NewErrEvent(e)
   ev.Publisher = self.sub
   ev.Publish()

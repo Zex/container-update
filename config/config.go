@@ -1,4 +1,5 @@
 package config
+/** CONFIG WITH YAML DEPRECATED
 
 import (
   "fmt"
@@ -32,3 +33,4 @@ func NewConfig(path string) *Config {
 
   return &cfg
 }
+*/

@@ -8,7 +8,7 @@ import (
 
 
 func gen_sample(path string) {
-  meta := &manifest.UpdateMeta{
+  meta := &manifest.UpdateManifest{
     Components: []manifest.Component {
       manifest.Component {
         Version: "0.1.2",

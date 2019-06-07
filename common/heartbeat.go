@@ -27,7 +27,7 @@ type Heartbeat struct {
 }
 
 type HeartbeatUI struct{
-  AppId string `json:"app_id,omitempty"`
+  ID string `json:"id,omitempty"`
   CreatedAt time.Time `json:"created_at,omitempty"`
   Containers []types.Container `json:"containers,omitempty"`
 }

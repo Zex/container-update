@@ -49,7 +49,7 @@ func (self *Daemon) fetchMani() (*manifest.UpdateManifest, error) {
     return nil, err
   }
 
-  return manifest.FetchMani(asset.Url)
+  return manifest.FetchUpdateMani(asset.Url)
 }
 
 // interface TimeoutHandler callback

@@ -6,7 +6,7 @@ import (
   "fmt"
   "strconv"
   "github.com/docker/docker/api/types/container"
-  "github.com/docker/go-connections/nat"
+  //"github.com/docker/go-connections/nat"
   "github.com/zex/container-update/common"
   "github.com/zex/container-update/manifest"
 )
@@ -36,7 +36,7 @@ func NewGen() *Gen {
 }
 
 func (g *Gen) NewAppComp(image_name, version string) (*manifest.Component) {
-  tag := g.LatestTag(image_name)
+  tag := "1.0"//g.LatestTag(image_name)
   cred, _ := manifest.GenCred(g.Reg.GetUserPasswd())
 
   force := false
@@ -91,7 +91,7 @@ func (g *Gen) NewAppComp(image_name, version string) (*manifest.Component) {
 }
 
 func (g *Gen) NewDbComp(image_name, version string) (*manifest.Component) {
-  tag := g.LatestTag(image_name)
+  tag := "1.0"//g.LatestTag(image_name)
   cred, _ := manifest.GenCred(g.Reg.GetUserPasswd())
 
   comp := manifest.Component{
@@ -109,16 +109,20 @@ func (g *Gen) NewDbComp(image_name, version string) (*manifest.Component) {
       AttachStdin: false,
       AttachStdout: false,
       AttachStderr: false,
+      /**
       ExposedPorts: nat.PortSet{
         nat.Port(fmt.Sprintf("%d/tcp", 3306)):{},
       },
+      */
     },
     HostConfig: container.HostConfig {
       RestartPolicy: container.RestartPolicy{Name: "always",},
+      /**
       PortBindings: nat.PortMap{
         nat.Port(fmt.Sprintf("%d/tcp", 3306)): []nat.PortBinding{
           {HostIP: "0.0.0.0", HostPort: "13306",},},
       },
+      */
       Binds: []string{"mysql-data:/var/lib/mysql:rw"},
     },
   }
@@ -127,7 +131,7 @@ func (g *Gen) NewDbComp(image_name, version string) (*manifest.Component) {
 }
 
 func (g *Gen) NewMqComp(image_name, version string) (*manifest.Component) {
-  tag := g.LatestTag(image_name)
+  tag := "1.0"//g.LatestTag(image_name)
   cred, _ := manifest.GenCred(g.Reg.GetUserPasswd())
 
   comp_op := manifest.COMPOP_DEPRECATE
@@ -147,19 +151,23 @@ func (g *Gen) NewMqComp(image_name, version string) (*manifest.Component) {
       AttachStdin: false,
       AttachStdout: false,
       AttachStderr: false,
+      /**
       ExposedPorts: nat.PortSet{
         nat.Port(fmt.Sprintf("%d/tcp", 8161)):{},
         nat.Port(fmt.Sprintf("%d/tcp", 61616)):{},
       },
+      */
     },
     HostConfig: container.HostConfig {
       RestartPolicy: container.RestartPolicy{Name: "always",},
+      /**
       PortBindings: nat.PortMap{
         nat.Port(fmt.Sprintf("%d/tcp", 8161)): []nat.PortBinding{
           {HostIP: "0.0.0.0", HostPort: "8161",},},
         nat.Port(fmt.Sprintf("%d/tcp", 61616)): []nat.PortBinding{
           {HostIP: "0.0.0.0", HostPort: "61616",},},
       },
+      */
     },
   }
 
@@ -167,7 +175,7 @@ func (g *Gen) NewMqComp(image_name, version string) (*manifest.Component) {
 }
 
 func (g *Gen) NewUpdaterComp(image_name, version string) (*manifest.Component) {
-  tag := g.LatestTag(image_name)
+  tag := "1.0"//g.LatestTag(image_name)
   cred, _ := manifest.GenCred(g.Reg.GetUserPasswd())
 
   comp := manifest.Component{

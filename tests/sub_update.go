@@ -68,7 +68,7 @@ func Start() {
 func on_message(msg *stomp.Message) {
   glog.Infof("%s (%v)", common.CurrentScope(), string(msg.Body))
 
-  var mani manifest.UpdateMeta
+  var mani manifest.UpdateManifest
   if err := json.Unmarshal(msg.Body, &mani); err != nil {
     glog.Error("failed to parse json: ", err)
     return
