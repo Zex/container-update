@@ -83,8 +83,9 @@ func (self *DockerUpdater) SetupComponents(mani *manifest.UpdateManifest) {
       }
     }
 
-    // publish error message
-    // if len(emsg) != 0 { self.pubError(emsg) }
+    if len(emsg) != 0 {
+      self.pubError(emsg)
+    }
   }
 
   if err := self.heartbeatUpdate(); err != nil {
@@ -215,4 +216,10 @@ func (self *DockerUpdater) heartbeatUpdate() error {
   }
 
   return hb.Publish()
+}
+
+func (self *Updater) pubError(e string) {
+  ev := common.NewErrEvent(e)
+  ev.Publisher = self.sub
+  ev.Publish()
 }

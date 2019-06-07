@@ -112,12 +112,6 @@ func (self *Daemon) pubStarted() {
   ev.Publish()
 }
 
-func (self *Daemon) pubError(e string) {
-  ev := common.NewErrEvent(e)
-  ev.Publisher = self.sub
-  ev.Publish()
-}
-
 func (self *Daemon) Start() {
   glog.Infof("%s", common.CurrentScope())
 
